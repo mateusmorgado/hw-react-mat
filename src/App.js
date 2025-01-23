@@ -1,24 +1,35 @@
-import React, { useState } from "react"; // Import useState from React
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Dropdown from "react-bootstrap/Dropdown";
+import Modal from "react-bootstrap/Modal";
 
 function App() {
   const [variant, setVariant] = useState("success");
   const [value, setValue] = useState(50);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   function onClickChangeColor() {
-    if (variant === "success") {
-      setVariant("danger");
-    } else {
-      setVariant("success");
-    }
+    setVariant((prevVariant) =>
+      prevVariant === "success" ? "danger" : "success"
+    );
   }
+
+  const handleDropdownClick = (event) => {
+    event.preventDefault();
+    const textValue = event.target.textContent;
+    setModalContent(`You selected: ${textValue}`);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => setShowModal(false);
 
   return (
     <div className="App">
@@ -35,7 +46,7 @@ function App() {
         >
           Learn React
         </a>
-        {/* Button with dynamic variant and onClick handler */}
+
         <Button
           variant={variant}
           onClick={onClickChangeColor}
@@ -57,6 +68,39 @@ function App() {
           />
           <p>Selected Value: {value}</p>
         </div>
+
+        <div className="divider-50px" />
+
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Dropdown
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item href="#/action-1" onClick={handleDropdownClick}>
+              One
+            </Dropdown.Item>
+            <Dropdown.Item href="#/action-2" onClick={handleDropdownClick}>
+              Two
+            </Dropdown.Item>
+            <Dropdown.Item href="#/action-3" onClick={handleDropdownClick}>
+              Three
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+
+        {/* Modal */}
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Selected Action</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalContent}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </header>
     </div>
   );
