@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.form-range-a {
+  width: 50%;
+  border: 5px solid purple;
+}
+
+.divider-50px {
+  height: 50px;
+}

@@ -2,10 +2,15 @@ import React, { useState } from "react"; // Import useState from React
 import logo from "./logo.svg";
 import "./App.css";
 import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 function App() {
   const [variant, setVariant] = useState("success");
+  const [value, setValue] = useState(50);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   function onClickChangeColor() {
     if (variant === "success") {
@@ -39,9 +44,18 @@ function App() {
           {variant === "success" ? "Success" : "Danger"}
         </Button>
 
-        <Form.Label>Range</Form.Label>
-        <Form.Range />
+        <div className="divider-50px" />
 
+        <div className="form-range-a">
+          <Form.Label>Range</Form.Label>
+          <Form.Range
+            value={value} // Bind the slider's value to the state
+            onChange={handleChange} // Update the value when the slider changes
+            min={0} // Optional: Set minimum value
+            max={100} // Optional: Set maximum value
+          />
+          <p>Selected Value: {value}</p>
+        </div>
       </header>
     </div>
   );
