@@ -49,10 +49,11 @@ function App() {
         <div className="form-range-a">
           <Form.Label>Range</Form.Label>
           <Form.Range
-            value={value} // Bind the slider's value to the state
-            onChange={handleChange} // Update the value when the slider changes
-            min={0} // Optional: Set minimum value
-            max={100} // Optional: Set maximum value
+            value={value}
+            onChange={handleChange}
+            min={0}
+            max={100}
+            data-testid="range-slider"
           />
           <p>Selected Value: {value}</p>
         </div>

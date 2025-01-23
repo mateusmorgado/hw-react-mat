@@ -20,3 +20,13 @@ test('Prüft, dass der Knopf seine Farbe nach einem Klick ändert', () => {
   fireEvent.click(buttonElement);
   expect(buttonElement).toHaveClass('btn-danger');
 });
+
+test("Slider lässt sich verschieben und der Wert ändert sich", () => {
+  render(<App />);
+  const slider = screen.getByTestId("range-slider");
+  expect(slider.value).toBe("50");
+  fireEvent.change(slider, { target: { value: "77" } });
+  expect(slider.value).toBe("77");
+  const displayedValue = screen.getByText("Selected Value: 77");
+  expect(displayedValue).toBeInTheDocument();
+});
